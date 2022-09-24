@@ -1,0 +1,19 @@
+{{#if shortURL}}
+<div class="container">
+  <div class="result">
+    <h5>成功！請使用這個網址</h5>
+    <a href="{{origin}}/{{shortURL}}" id="newShortenURL">{{origin}}/{{shortURL}}</a>
+  </div>
+  <button class="copy" onclick="copy()">Copy</button>
+</div>
+
+<script>
+  function copy() {
+    const URL = document.getElementById("newShortenURL")
+    navigator.clipboard.writeText(URL.innerText)
+      .then(() => alert("已經成功複製!"))
+      .catch(error => console.log(error))
+  }
+</script>
+
+{{/if}}
