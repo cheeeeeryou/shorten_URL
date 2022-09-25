@@ -6,7 +6,7 @@ const port = 3000
 //setting handlebars
 const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.use(express.static("public"))
+app.use(express.static('public'))
 app.set('view engine', 'handlebars')
 
 //setting mongoose
@@ -23,14 +23,14 @@ app.get('/', (req, res) => {
 })
 
 
-app.post("/", (req, res) => {
+app.post('/', (req, res) => {
   const shortURL = shortenURL(5)
   URL.findOne({ originalURL: req.body.url })
     .then(data =>
       data ? data : URL.create({ shortURL, originalURL: req.body.url })
     )
     .then(data =>
-      res.render("show", {
+      res.render('show', {
         origin: req.headers.origin,
         shortURL: data.shortURL,
       })
@@ -38,12 +38,12 @@ app.post("/", (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.get("/:shortURL", (req, res) => {
+app.get('/:shortURL', (req, res) => {
   const { shortURL } = req.params
   URL.findOne({ shortURL })
     .then(data => {
       if (!data) {
-        return res.render("error")
+        return res.render('error')
       }
       res.redirect(data.originalURL)
     })
