@@ -13,15 +13,15 @@ app.set('view engine', 'handlebars')
 const mongoose = require('mongoose')
 require('./config/mongoose')
 
+//setting route
+const routes = require('./routes')
+
 const URL = require('./models/url')
 const shortenURL = require('./functions/urlshorten')
 
+
+app.use(routes)
 app.use(express.urlencoded({ extended: true }))
-
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
 
 app.post('/', (req, res) => {
   const shortURL = shortenURL(5)
